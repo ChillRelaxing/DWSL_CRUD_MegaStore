@@ -1,0 +1,43 @@
+CREATE DATABASE tienda_Leo;
+USE tienda_Leo;
+
+CREATE TABLE usuario (
+    idusuario INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    usuario VARCHAR(50) NOT NULL UNIQUE,
+    pwd VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE categoria (
+    idcategoria INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE producto (
+    idproducto INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    precio DECIMAL(10, 2) NOT NULL,
+    idcategoria INT,
+    FOREIGN KEY (idcategoria) REFERENCES categoria(idcategoria)
+);
+
+INSERT INTO usuario (nombre, usuario, pwd) VALUES
+('Leo Salmeron', 'Admin', MD5('123')),
+('Ana García', 'Editor', MD5('ana2024')),
+('Carlos López', 'Soporte', MD5('carlos77'));
+
+INSERT INTO categoria (nombre) VALUES
+('Electrónica'),
+('Ropa'),
+('Alimentos'),
+('Libros');
+
+INSERT INTO producto (nombre, descripcion, precio, idcategoria) VALUES
+('Smartphone XYZ', 'Smartphone con pantalla de 6.5 pulgadas y 128GB de almacenamiento.', 299.99, 1),
+('Laptop ABC', 'Laptop de 15 pulgadas con 8GB de RAM y 256GB SSD.', 499.99, 1),
+('Camiseta Básica', 'Camiseta de algodón 100% disponible en varios colores.', 15.99, 2),
+('Jeans Clásicos', 'Jeans de corte clásico, resistentes y cómodos.', 39.99, 2),
+('Cereal Integral', 'Cereal con avena y frutas deshidratadas.', 5.99, 3),
+('Libro de Programación', 'Guía completa para aprender a programar en Python.', 25.99, 4);
+
