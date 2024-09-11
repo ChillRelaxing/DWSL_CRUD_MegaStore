@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Verificar si el usuario está autenticado
+// Verificamos si el usuario está autenticado
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header('Location: ../index.php');
     exit;
@@ -9,10 +9,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 include_once('../conf/conf.php');
 
-// Obtener el ID de la categoría a eliminar
+// Obtenemos el ID de la categoría a eliminar
 $idcategoria = isset($_GET['idcategoria']) ? intval($_GET['idcategoria']) : 0;
 
-// Consultar la información de la categoría
+// Consultamos la información de la categoría
 $consulta_categoria = "SELECT * FROM categoria WHERE idcategoria = $idcategoria";
 $resultado_categoria = mysqli_query($con, $consulta_categoria);
 

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Verificar si el usuario está autenticado
+// Verificarmos si el usuario está autenticado
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header('Location: ../index.php');
     exit;
@@ -29,7 +29,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
 
             <button class="btn btn-primary" type="submit">Guardar</button>
-            <a href="listaCategoria.php" class="btn btn-secondary">Cancelar</a> <!-- Botón para cancelar -->
+            <a href="listaCategoria.php" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 </body>

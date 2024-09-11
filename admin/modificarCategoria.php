@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Modificar Categoría</title>
 </head>
+
 <body>
     <?php
+    session_start();
+
+    // Verificamos si el usuario está autenticado
+    if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+        header('Location: ../index.php');
+        exit;
+    }
+
     include_once '../conf/conf.php';
     $idcategoria = isset($_GET['idcategoria']) ? $_GET['idcategoria'] : "";
-    
-    // Consulta para obtener los datos de la categoría
+
+    // Consultamos para obtener los datos de la categoría
     $consultadev = "SELECT * FROM categoria WHERE idcategoria=" . $idcategoria;
     $ejecutar = mysqli_query($con, $consultadev);
     if (!$ejecutar) {
@@ -32,8 +42,9 @@
             </div>
 
             <button class="btn btn-primary" type="submit">Guardar</button>
-            <a href="listaCategoria.php" class="btn btn-secondary">Cancelar</a> <!-- Botón para cancelar -->
+            <a href="listaCategoria.php" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 </body>
+
 </html>
