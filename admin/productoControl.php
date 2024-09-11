@@ -1,14 +1,14 @@
 <?php
 include_once('../conf/conf.php');
 
-// Obtener el valor de la bandera para determinar la acción a realizar
+// Obtenemos el valor de la bandera para determinar la acción a realizar
 $opcion = isset($_POST['bandera']) ? $_POST['bandera'] : "";
 
-// Obtener el ID del producto a eliminar desde el POST
+// Obtenemos el ID del producto a eliminar desde el POST
 $idproducto = isset($_POST['idproducto']) ? intval($_POST['idproducto']) : 0;
 
 if ($opcion == 1) {
-    // Registrar un nuevo producto
+    // Registramos un nuevo producto
     $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : "";
     $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : "";
     $precio = isset($_POST['precio']) ? floatval($_POST['precio']) : 0.0;
@@ -23,7 +23,7 @@ if ($opcion == 1) {
         echo "Error en la consulta de registro: " . mysqli_error($con);
     }
 } elseif ($opcion == 2) {
-    // Modificar un producto existente
+    // Modificamos un producto existente
     $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : "";
     $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : "";
     $precio = isset($_POST['precio']) ? floatval($_POST['precio']) : 0.0;
@@ -42,7 +42,7 @@ if ($opcion == 1) {
         echo "Error en la consulta de modificación: " . mysqli_error($con);
     }
 } elseif ($opcion == 3) {
-    // Eliminar un producto
+    // Eliminamos un producto
     $consulta = "DELETE FROM producto WHERE idproducto = $idproducto";
     $ejecutar = mysqli_query($con, $consulta);
     if ($ejecutar) {
@@ -52,7 +52,7 @@ if ($opcion == 1) {
     }
 }
 
-// Cerrar la conexión
+// Cerrarmos la conexión
 $con->close();
 ?>
 

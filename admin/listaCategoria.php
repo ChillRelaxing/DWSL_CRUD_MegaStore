@@ -2,26 +2,27 @@
 
 session_start();
 
-if ($_SESSION['usuario'] == "") {
+// Verificamos si el usuario está autenticado
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header('Location: ../index.php');
     exit;
 }
 
 include_once('../conf/conf.php');
 
-// Verificar si se ha enviado una búsqueda
+// Verificamos si se ha enviado una búsqueda
 $busqueda = "";
 if (isset($_GET['buscar'])) {
     $busqueda = mysqli_real_escape_string($con, $_GET['buscar']);
     $consulta = "SELECT * FROM categoria WHERE nombre LIKE '%$busqueda%'";
 } else {
-    // Definir la consulta SQL para seleccionar todas las categorías
+    // Definimos la consulta SQL para seleccionar todas las categorías
     $consulta = "SELECT * FROM categoria";
 }
 
 $ejecutar = mysqli_query($con, $consulta);
 
-// Verificar si la consulta fue exitosa
+// Verificamos si la consulta fue exitosa
 if (!$ejecutar) {
     die("Error en la consulta: " . mysqli_error($con));
 }

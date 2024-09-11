@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Modificar Producto</title>
 </head>
+
 <body>
     <?php
+    session_start();
+
+    // Verificamos si el usuario está autenticado
+    if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+        header('Location: ../index.php');
+        exit;
+    }
+
     include_once '../conf/conf.php';
-    $idproducto = isset($_GET['idproducto']) ? $_GET['idproducto'] : "";
-    
+    $idproducto = isset($_GET['idproducto']) ? intval($_GET['idproducto']) : 0;
+
     // Consultamos para obtener los datos del producto
     $consultadev = "SELECT * FROM producto WHERE idproducto=" . $idproducto;
     $ejecutar = mysqli_query($con, $consultadev);
@@ -19,7 +29,7 @@
     }
     $dato = mysqli_fetch_array($ejecutar);
 
-    // Consulta para obtener las categorías disponibles
+    // Consultamos para obtener las categorías disponibles
     $consulta_categorias = "SELECT * FROM categoria";
     $resultado_categorias = mysqli_query($con, $consulta_categorias);
     if (!$resultado_categorias) {
@@ -65,4 +75,5 @@
         </form>
     </div>
 </body>
+
 </html>

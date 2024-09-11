@@ -2,7 +2,8 @@
 
 session_start();
 
-if ($_SESSION['usuario'] == "") {
+// Verificamos si el usuario está autenticado
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header('Location: ../index.php');
     exit;
 }
@@ -12,7 +13,7 @@ include_once('../conf/conf.php');
 // Verificamos si se ha enviado una búsqueda
 $search = isset($_GET['search']) ? mysqli_real_escape_string($con, $_GET['search']) : '';
 
-// Definir la consulta SQL para seleccionar productos con el nombre de la categoría, incluyendo el filtro de búsqueda
+// Definimos la consulta SQL para seleccionar productos con el nombre de la categoría, incluyendo el filtro de búsqueda
 $consulta = "
     SELECT p.idproducto, p.nombre AS producto_nombre, p.descripcion, p.precio, c.nombre AS categoria_nombre
     FROM producto p
