@@ -1,4 +1,5 @@
 <?php
+//Cargamos el archivo de configuracion de la base de datos
 include_once('../conf/conf.php');
 
 // Obtenemos el valor de la bandera para determinar la acción a realizar

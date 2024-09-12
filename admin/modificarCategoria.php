@@ -1,3 +1,25 @@
+<?php
+session_start();
+
+// Verificamos si el usuario está autenticado
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    header('Location: ../index.php');
+    exit;
+}
+
+include_once '../conf/conf.php';
+
+$idcategoria = isset($_GET['idcategoria']) ? $_GET['idcategoria'] : "";
+
+// Consultamos para obtener los datos de la categoría
+$consultadev = "SELECT * FROM categoria WHERE idcategoria=" . $idcategoria;
+$ejecutar = mysqli_query($con, $consultadev);
+if (!$ejecutar) {
+    die("Error en la consulta: " . mysqli_error($con));
+}
+$dato = mysqli_fetch_array($ejecutar);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,27 +31,6 @@
 </head>
 
 <body>
-    <?php
-    session_start();
-
-    // Verificamos si el usuario está autenticado
-    if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-        header('Location: ../index.php');
-        exit;
-    }
-
-    include_once '../conf/conf.php';
-    $idcategoria = isset($_GET['idcategoria']) ? $_GET['idcategoria'] : "";
-
-    // Consultamos para obtener los datos de la categoría
-    $consultadev = "SELECT * FROM categoria WHERE idcategoria=" . $idcategoria;
-    $ejecutar = mysqli_query($con, $consultadev);
-    if (!$ejecutar) {
-        die("Error en la consulta: " . mysqli_error($con));
-    }
-    $dato = mysqli_fetch_array($ejecutar);
-    ?>
-
     <div class="container mt-4">
         <h2>Modificar Categoría</h2>
         <form action="categoriaControl.php" method="POST">

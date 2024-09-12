@@ -1,5 +1,5 @@
-CREATE DATABASE tienda_Leo;
-USE tienda_Leo;
+CREATE DATABASE MegaStore;
+USE MegaStore;
 
 CREATE TABLE usuario (
     idusuario INT AUTO_INCREMENT PRIMARY KEY,

@@ -1,3 +1,32 @@
+<?php
+session_start();
+
+// Verificamos si el usuario está autenticado
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    header('Location: ../index.php');
+    exit;
+}
+
+include_once '../conf/conf.php';
+
+$idproducto = isset($_GET['idproducto']) ? intval($_GET['idproducto']) : 0;
+
+// Consultamos para obtener los datos del producto
+$consultadev = "SELECT * FROM producto WHERE idproducto=" . $idproducto;
+$ejecutar = mysqli_query($con, $consultadev);
+if (!$ejecutar) {
+    die("Error en la consulta: " . mysqli_error($con));
+}
+$dato = mysqli_fetch_array($ejecutar);
+
+// Consultamos para obtener las categorías disponibles
+$consulta_categorias = "SELECT * FROM categoria";
+$resultado_categorias = mysqli_query($con, $consulta_categorias);
+if (!$resultado_categorias) {
+    die("Error en la consulta de categorías: " . mysqli_error($con));
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,34 +38,6 @@
 </head>
 
 <body>
-    <?php
-    session_start();
-
-    // Verificamos si el usuario está autenticado
-    if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-        header('Location: ../index.php');
-        exit;
-    }
-
-    include_once '../conf/conf.php';
-    $idproducto = isset($_GET['idproducto']) ? intval($_GET['idproducto']) : 0;
-
-    // Consultamos para obtener los datos del producto
-    $consultadev = "SELECT * FROM producto WHERE idproducto=" . $idproducto;
-    $ejecutar = mysqli_query($con, $consultadev);
-    if (!$ejecutar) {
-        die("Error en la consulta: " . mysqli_error($con));
-    }
-    $dato = mysqli_fetch_array($ejecutar);
-
-    // Consultamos para obtener las categorías disponibles
-    $consulta_categorias = "SELECT * FROM categoria";
-    $resultado_categorias = mysqli_query($con, $consulta_categorias);
-    if (!$resultado_categorias) {
-        die("Error en la consulta de categorías: " . mysqli_error($con));
-    }
-    ?>
-
     <div class="container mt-4">
         <h2>Modificar Producto</h2>
         <form action="productoControl.php" method="POST">
