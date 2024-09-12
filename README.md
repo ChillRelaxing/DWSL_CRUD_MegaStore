@@ -1,2 +1,2 @@
-# DWSL_CRUD_Tienda_Leo
+# DWSL_CRUD_MegaStore
 CRUD echo con php, MySql, html y css - Parcial 1
