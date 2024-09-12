@@ -3,7 +3,7 @@
 $server="localhost";
 $pass="1234";
 $user="root";
-$db="tienda_Leo";
+$db="MegaStore";
 
 $con= mysqli_connect($server, $user, $pass, $db);
 
